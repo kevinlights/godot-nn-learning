@@ -3,7 +3,7 @@ extends Area2D
 class_name Bot
 
 var NN = preload("res://lib/Neural Network/Brain.gd")
-@onready var game = $"."
+
 
 var weightsIH = [[0, 0, 0], [0, 0, 0]]
 var weightsHO = [[0, 0], [0, 0]]
@@ -48,7 +48,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var ball
-	var balls = get_tree().get_nodes_in_group("")
+	var balls = get_tree().get_nodes_in_group("ball")
 	
 	for i in balls:
 		# 只处理自己对应的球

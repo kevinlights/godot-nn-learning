@@ -68,11 +68,12 @@ func setPopulation():
 		
 		pongbot.init(weightsIH, weightsHO, biasH, biasO)
 		
-		pongbot.position = Vector2(940, 288)
+		pongbot.position = Vector2(500, 145)
 		var ball = ballScn.instantiate()
+		
 		ball.add_to_group("ball")
-		ball.connect("playerHit", onPlayerHit)
-		ball.connect("botHit", onBotHit)
+		#ball.connect("playerHit", onPlayerHit)
+		#ball.connect("botHit", onBotHit)
 			
 		ball.restart(1)
 		ball.k = k
@@ -90,6 +91,7 @@ func setPopulation():
 	
 
 func onPlayerHit(k):
+	print("onPlayerHit", k)
 	playerScore += 1
 	
 	for i in range(instances.size()):
@@ -110,6 +112,7 @@ func onPlayerHit(k):
 	playerLabel.text = str(playerScore)
 	
 func onBotHit(k):
+	print("onBotHit", k)
 	botScore += 1
 	botLabel.text = str(botScore)
 

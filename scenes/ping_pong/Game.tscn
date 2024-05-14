@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cobw22uuoivg0"]
+[gd_scene load_steps=4 format=3 uid="uid://cobw22uuoivg0"]
 
 [ext_resource type="Script" path="res://scenes/ping_pong/Game.gd" id="1_nnoeu"]
+[ext_resource type="Script" path="res://scenes/ping_pong/PlayerScene.gd" id="2_7teqf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w83hj"]
 size = Vector2(20, 320)
@@ -9,6 +10,7 @@ size = Vector2(20, 320)
 script = ExtResource("1_nnoeu")
 
 [node name="Player" type="Area2D" parent="."]
+script = ExtResource("2_7teqf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 150)
@@ -57,3 +59,5 @@ offset_top = 269.0
 offset_right = 71.0
 offset_bottom = 292.0
 text = "Best Rating: 0"
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]

@@ -2,10 +2,8 @@ extends Area2D
 
 class_name Ball
 
-signal botHit
-signal playerHit
-
-@onready var game = $"."
+#signal botHit
+#signal playerHit
 
 var initialVel = 300
 var vel = initialVel
@@ -26,15 +24,15 @@ func _process(delta):
 	if position.y >= 270:
 		bounce(30)
 	# 左
-	if position.x <= 0:
+	if position.x <= 0: # AI 得分
 		# 触发 Game 中的 onBotHit 方法
-		#game.onBotHit(k)
-		botHit.emit(k)
-		restart(1)
+		get_node("..").onBotHit(k)
+		#botHit.emit(k)
+		restart(1) # player 发球 ?
 	# 右
-	if position.x >= 500:
-		#game.onPlayerHit(k)
-		playerHit.emit(k)
+	if position.x >= 500: # player 得分
+		get_node("..").onPlayerHit(k)
+		#playerHit.emit(k)
 		restart(-1)
 	
 	run(delta)
