@@ -19,11 +19,11 @@ func _ready():
 	randomize()
 	brain = NN.new(3, 10, 2)
 	
-	for i in range(1000):
-		pick_color()
-		train_color()
+	#for i in range(1000):
+		#pick_color()
+		#train_color()
 	
-	reset()
+	#reset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -75,4 +75,20 @@ func _on_left_button_pressed():
 
 func _on_right_button_pressed():
 	brain.train([r, g, b], [0, 1])
+	reset()
+
+
+func _on_save_button_pressed():
+	brain.save()
+
+
+func _on_load_button_pressed():
+	brain.load()
+	reset()
+
+
+func _on_init_train_button_pressed():
+	for i in range(1000):
+		pick_color()
+		train_color()
 	reset()

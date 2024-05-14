@@ -4,6 +4,19 @@ var rows := 0
 var cols := 0
 var data := []
 
+
+func save():
+	return {
+		"rows": rows,
+		"cols": cols,
+		"data": data,
+	}
+	
+func load(d):
+	rows = d["rows"]
+	cols = d["cols"]
+	data = d["data"]
+
 # CONSTRUCTORS
 func _init(a, b = null):
 	if a is Array:

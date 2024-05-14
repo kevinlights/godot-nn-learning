@@ -15,6 +15,8 @@ var bias_o: Matrix
 var learning_rate = 1
 var mutation_rate = 0.1
 
+const save_path = "user://brain_data.json"
+
 #var sigmoid: FuncRef
 #var dsigmoid: FuncRef
 #var mutation_func: FuncRef
@@ -30,6 +32,50 @@ func _init(a, b = 1, c = 1):
 		construct_from_sizes(a, b, c)
 	else:
 		construct_from_nn(a)
+
+# save brain data to file
+func save():
+	var brain_data = JSON.stringify({
+		"input_nodes": input_nodes,
+		"hidden_nodes": hidden_nodes,
+		"output_nodes": output_nodes,
+		"weights_ih": weights_ih.save(),
+		"weights_ho": weights_ho.save(),
+		"bias_h": bias_h.save(),
+		"bias_o": bias_o.save(),
+	})
+	
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_string(brain_data)
+	print("brain data was saved")
+
+# load brain data from file
+func load():
+	if not FileAccess.file_exists(save_path):
+		return
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	while file.get_position() < file.get_length():
+		var json_str = file.get_line()
+		var json = JSON.new()
+		var parsed = json.parse(json_str)
+		if not parsed == OK:
+			print("parse error", json.get_error_message(), json.get_error_line())
+			continue
+		var brain_data = json.get_data()
+		#print(brain_data)
+		input_nodes = brain_data["input_nodes"]
+		hidden_nodes = brain_data["hidden_nodes"]
+		output_nodes = brain_data["output_nodes"]
+		weights_ih = Matrix.new(hidden_nodes, input_nodes)
+		weights_ih.load(brain_data["weights_ih"])
+		weights_ho = Matrix.new(output_nodes, hidden_nodes)
+		weights_ho.load(brain_data["weights_ho"])
+		bias_h = Matrix.new(hidden_nodes, 1)
+		bias_o = Matrix.new(output_nodes, 1)
+		bias_h.load(brain_data["bias_h"])
+		bias_o.load(brain_data["bias_o"])
+		print("loaded brain data from file")
+		
 
 func construct_from_sizes(a, b, c):
 	input_nodes = a
