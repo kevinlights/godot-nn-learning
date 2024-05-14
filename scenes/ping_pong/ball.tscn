@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm2pvudndkbap"]
+
+[ext_resource type="Script" path="res://scenes/ping_pong/ball.gd" id="1_c3mu7"]
+[ext_resource type="Texture2D" uid="uid://thq6qevu00s2" path="res://scenes/ping_pong/white-ball.png" id="1_v05jf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v83fi"]
+size = Vector2(16, 16)
+
+[node name="Ball" type="Area2D"]
+script = ExtResource("1_c3mu7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.266667, 0.266667)
+texture = ExtResource("1_v05jf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v83fi")
