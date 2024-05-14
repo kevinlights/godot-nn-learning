@@ -8,6 +8,7 @@ size = Vector2(20, 320)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nnoeu")
+isPlay = true
 
 [node name="Player" type="Area2D" parent="."]
 script = ExtResource("2_7teqf")
