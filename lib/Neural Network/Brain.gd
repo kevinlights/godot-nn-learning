@@ -15,18 +15,17 @@ var bias_o: Matrix
 var learning_rate = 1
 var mutation_rate = 0.1
 
-const save_path = "user://brain_data.json"
+#var active_func = sigmoid
+#var d_active_func = dsigmoid
 
-#var sigmoid: FuncRef
-#var dsigmoid: FuncRef
-#var mutation_func: FuncRef
+var active_func = reLU
+var d_active_func = dreLU
+
+const save_path = "user://brain_data.json"
 
 # CONSTRUCTORS
 func _init(a, b = 1, c = 1):
 	randomize()
-	#sigmoid = funcref(self, 'sigmoid')
-	#dsigmoid = funcref(self, "dsigmoid")
-	#mutation_func = funcref(self, "mutation_func")
 	
 	if a is int:
 		construct_from_sizes(a, b, c)
@@ -108,11 +107,13 @@ func predict(input_array: Array) -> Array:
 	
 	var hidden = MatrixOperator.multiply(weights_ih, inputs)
 	hidden.add(bias_h)
-	hidden.map(sigmoid)
+	#hidden.map(sigmoid)
+	hidden.map(active_func)
 	
 	var outputs = MatrixOperator.multiply(weights_ho, hidden)
 	outputs.add(bias_o)
-	outputs.map(sigmoid)
+	#outputs.map(sigmoid)
+	outputs.map(active_func)
 	
 	return outputs.to_array()
 
@@ -121,17 +122,17 @@ func train(input_array, target_array):
 	
 	var hidden = MatrixOperator.multiply(weights_ih, inputs)
 	hidden.add(bias_h)
-	hidden.map(sigmoid)
+	hidden.map(active_func)
 	
 	var outputs = MatrixOperator.multiply(weights_ho, hidden)
 	outputs.add(bias_o)
-	outputs.map(sigmoid)
+	outputs.map(active_func)
 	
 	var targets = Matrix.new(target_array)
 	
 	var output_errors = MatrixOperator.subtract(targets, outputs)
 	
-	var gradients = MatrixOperator.map(outputs, dsigmoid)
+	var gradients = MatrixOperator.map(outputs, d_active_func)
 	gradients.multiply(output_errors)
 	gradients.multiply(learning_rate)
 	
@@ -144,7 +145,7 @@ func train(input_array, target_array):
 	var who_t = MatrixOperator.transpose(weights_ho)
 	var hidden_errors = MatrixOperator.multiply(who_t, output_errors)
 	
-	var hidden_gradients = MatrixOperator.map(hidden, dsigmoid)
+	var hidden_gradients = MatrixOperator.map(hidden, d_active_func)
 	hidden_gradients.multiply(hidden_errors)
 	hidden_gradients.multiply(learning_rate)
 	
@@ -174,3 +175,16 @@ func sigmoid(x):
 
 func dsigmoid(y):
 	return y * (1 - y)
+
+
+func reLU(x):
+	if(x < 0):
+		return 0
+	else:
+		return x
+
+func dreLU(y):
+	if(y < 0):
+		return 0
+	else:
+		return 1

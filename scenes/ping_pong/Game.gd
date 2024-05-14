@@ -50,7 +50,7 @@ func setPopulation():
 	var k = 0
 	randomize()
 	var kColor = [randf(), randf(), randf()]
-	
+	print("population size: ", genetic.population.size())
 	for i in range(genetic.population.size()):
 		var pongbot = botScn.instantiate()
 		
@@ -68,7 +68,8 @@ func setPopulation():
 		
 		pongbot.init(weightsIH, weightsHO, biasH, biasO)
 		
-		pongbot.position = Vector2(500, 145)
+		#pongbot.position = Vector2(500, 145)
+		pongbot.position = Vector2(500, 45)
 		var ball = ballScn.instantiate()
 		
 		ball.add_to_group("ball")

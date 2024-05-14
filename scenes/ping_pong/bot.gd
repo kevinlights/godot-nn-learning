@@ -55,10 +55,11 @@ func _process(delta):
 		if(i.k == k):
 			ball = i
 	if ball:
-		# 距离球的位置：当前位置
+		# 距离球的位置：当前位置与球的位置
 		#var distanceOfBall = position.x - ball.position.x - 64 - 12 +  93 - 30
+		var distanceOfBall = position.x - ball.position.x + 100
 		# print("distanceOfBall=", distanceOfBall)
-		var distanceOfBall = position.x - ball.position.x # 简化处理成 x 之差
+		#var distanceOfBall = position.x - ball.position.x # 简化处理成 x 之差
 		var ballY = ball.position.y
 		var ballVelocity = ball.vel
 	
@@ -67,7 +68,7 @@ func _process(delta):
 		#print([normalizedValues.x, normalizedValues.y, normalizedValues.z])
 		var nnPredict = nn.predict([normalizedValues.x, normalizedValues.y, normalizedValues.z])
 
-		#print(nnPredict)
+		#print("nnPredict: ", nnPredict)
 		if(nnPredict[0] >= 1):
 			racket.walk(1, delta)
 			

@@ -1,5 +1,7 @@
 extends Area2D
 
+# this scene node is just for training
+# 仅用于训练，后续可用 Player 来接球
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
