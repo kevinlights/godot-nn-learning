@@ -15,3 +15,5 @@ func _process(delta):
 
 func _on_area_entered(ball: Ball):
 	ball.horizontal = -(ball.horizontal)
+	# 给球一些随机速度补偿，加快训练速度
+	ball.vel = randf_range(0.5, 1.5) * ball.vel

@@ -15,7 +15,8 @@ var playerScore = 0
 var botScore = 0
 var time = 0
 var numberPopulation = 30
-var initializeWithThatWeights = null
+#var initializeWithThatWeights = null
+var initializeWithThatWeights = [0.80117901334392, -0.66901837430714, -0.52845502307405, 0.05880103066812, -0.73453974858919, -0.0796239889588, -0.12428542470532, 0.30518798441505, 0.85899762900494, -0.08190592403411, 0.47327935482996, -0.86326190250845, -0.69742893002237, 0.95990391231876, -0.63878387542086, -0.8503956144581, -0.59480842259092, -0.45214571929147, 0.20914894404746, -0.60743953447193, 0.97109704294534, -0.63724922311874, 0.45990465709022, -0.42945681739216, -0.59722126449732, -0.79992202477882, -0.59122138474528, -0.73086854761705, 0.2056413130883, 0.75774561997752, -0.45376233604866, -0.96554940595748, -0.04750574110891, 0.41143160782741, -0.95331035386667, 0.49499454810343, 0.47438286446786, -0.14477792127091]
 var instances = []
 var balls = []
 
@@ -92,7 +93,7 @@ func setPopulation():
 	
 
 func onPlayerHit(k):
-	print("onPlayerHit", k)
+	#print("onPlayerHit", k)
 	playerScore += 1
 	
 	for i in range(instances.size()):
@@ -113,7 +114,7 @@ func onPlayerHit(k):
 	playerLabel.text = str(playerScore)
 	
 func onBotHit(k):
-	print("onBotHit", k)
+	#print("onBotHit", k)
 	botScore += 1
 	botLabel.text = str(botScore)
 
