@@ -57,9 +57,9 @@ func _process(delta):
 	if ball:
 		# 距离球的位置：当前位置与球的位置
 		#var distanceOfBall = position.x - ball.position.x - 64 - 12 +  93 - 30
-		var distanceOfBall = position.x - ball.position.x + 100
+		#var distanceOfBall = position.x - ball.position.x + 100
 		# print("distanceOfBall=", distanceOfBall)
-		#var distanceOfBall = position.x - ball.position.x # 简化处理成 x 之差
+		var distanceOfBall = position.x - ball.position.x # 简化处理成 x 之差
 		var ballY = ball.position.y
 		var ballVelocity = ball.vel
 	

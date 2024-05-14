@@ -9,6 +9,7 @@ const ballScn = preload("res://scenes/ping_pong/ball.tscn")
 @onready var generation = $GeneticInfo/Generation
 @onready var time_label = $Timer/TimeLabel
 
+const save_path = "user://genetic_top_chromosome.save"
 
 var genetic
 var playerScore = 0
@@ -73,7 +74,9 @@ func setPopulation():
 		
 		pongbot.init(weightsIH, weightsHO, biasH, biasO)
 		
+		# 球拍默认可以在中间，模拟实际情形，但会导致 AI 出现惰性，不建议
 		#pongbot.position = Vector2(500, 145)
+		# 建议放到顶部或底部，增强 AI 的驱动力
 		pongbot.position = Vector2(500, 45)
 		var ball = ballScn.instantiate()
 		
@@ -157,3 +160,33 @@ func restart():
 	
 	print("bestSolution: ", genetic.bestSolution.chromosome)
 	print("bestSolution size: ", len(genetic.bestSolution.chromosome))
+	# save top N chromosome to file
+	saveTopNChromosome()
+
+func saveTopNChromosome(n=10):
+	var topN = []
+	if n > len(genetic.population):
+		n = len(genetic.population)
+	for i in range(n):
+		topN.append(genetic.population[i].chromosome)
+	var top_n_data = JSON.stringify({
+		"generation": genetic.generation,
+		"top_n_chromosome": topN
+	})
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_string(top_n_data)
+	print("chromosome data was saved")
+	
+func loadChromosome():
+	if not FileAccess.file_exists(save_path):
+		return
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	while file.get_position() < file.get_length():
+		var json_str = file.get_line()
+		var json = JSON.new()
+		var parsed = json.parse(json_str)
+		if not parsed == OK:
+			print("parse error", json.get_error_message(), json.get_error_line())
+			continue
+		var top_n_data = json.get_data()
+		return top_n_data

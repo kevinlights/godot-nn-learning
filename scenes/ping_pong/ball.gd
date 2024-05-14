@@ -5,8 +5,8 @@ class_name Ball
 #signal botHit
 #signal playerHit
 
-var initialVel = 300
-var vel = initialVel
+var initialVel = 300 
+var vel = initialVel # 初始速度
 var horizontal = 1
 var vertical = 0
 var k
@@ -42,7 +42,8 @@ func run(delta):
 
 func restart(newHorizontal):
 	horizontal = newHorizontal
-	vertical = 0
+	#垂直方向加一些随机，模拟不同发球角度
+	vertical = 0 + randf_range(-0.5, 0.5)
 	position = Vector2(240, 150)
 
 func bounce(d):

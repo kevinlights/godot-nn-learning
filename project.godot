@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot-nn-learning"
-run/main_scene="res://scenes/color_predictor/main.tscn"
+run/main_scene="res://scenes/ping_pong/Game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
