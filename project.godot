@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="godot-nn-learning"
-run/main_scene="res://scenes/ping_pong/Game.tscn"
+config/tags=PackedStringArray("4.2", "ai", "genetic")
+run/main_scene="res://games/ping_pong/Game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,3 +20,8 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=500
 window/size/viewport_height=300
+
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
