@@ -1,8 +1,11 @@
 @tool
 extends TileMap
 
+# 生成地形
 @export var genTerrain: bool
 @export var clearTerrain: bool
+# 生成资源
+@export var genResource: bool
 @export var mapWidth: int = 86
 @export var mapHeight: int = 50
 # 生成地形随机数种子
@@ -13,11 +16,9 @@ extends TileMap
 @export var soilThreshold: float = -0.5
 @export var grassThreshold: float = -0.7
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,7 +28,12 @@ func _process(delta):
 	if clearTerrain:
 		clearTerrain = false
 		clear()
+	if genResource:
+		genResource = false
+		GenerateResource()
 
+func GenerateResource():
+	print("generating resources...")
 	
 func GenerateTerrain():
 	print("generating terrain...")
@@ -52,15 +58,13 @@ func GenerateTerrain():
 			# 顺序很重要，决定了先生成什么
 			
 			if val > waterThreshold: # 水是底层
-				atlas_coords = Vector2i(0,0)
+				atlas_coords = Vector2i(0, 0)
 			elif val > sandThreshold: # 然后是沙子
-				atlas_coords = Vector2i(0,1)
+				atlas_coords = Vector2i(0, 1)
 			elif val > soilThreshold: # 沙子上层是土壤
-				atlas_coords = Vector2i(2,0)
+				atlas_coords = Vector2i(2, 0)
 			elif val > grassThreshold: # 土壤上层长草
-				atlas_coords = Vector2i(3,0)
-			
-			
+				atlas_coords = Vector2i(3, 0)
 			
 			set_cell(0, Vector2i(x, y), 0, atlas_coords)
 	print(noise_vals.min(), ", ", noise_vals.max())
