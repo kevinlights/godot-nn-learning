@@ -21,7 +21,7 @@ func _process(delta):
 	# 处理上下边缘碰撞
 	if position.y <= 30:
 		bounce(-30)
-	if position.y >= 270:
+	if position.y >= 730:
 		bounce(30)
 	# 左
 	if position.x <= 0: # AI 得分
@@ -30,7 +30,7 @@ func _process(delta):
 		#botHit.emit(k)
 		restart(1) # player 发球 ?
 	# 右
-	if position.x >= 500: # player 得分
+	if position.x >= 1366: # player 得分
 		get_node("..").onPlayerHit(k)
 		#playerHit.emit(k)
 		restart(-1)
@@ -44,7 +44,8 @@ func restart(newHorizontal):
 	horizontal = newHorizontal
 	#垂直方向加一些随机，模拟不同发球角度
 	vertical = 0 + randf_range(-0.5, 0.5)
-	position = Vector2(240, 150)
+	# 球的初始位置，暂时放在中心
+	position = Vector2(683, 384)
 
 # 球的反弹，这里只设置垂直方向的变化，方向不变，并对值进行一些调整，模拟现实中的摩擦力，会损失一部分垂直速度
 func bounce(d):

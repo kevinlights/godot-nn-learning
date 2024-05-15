@@ -93,7 +93,7 @@ func displayPopulation():
 		# 球拍默认可以在中间，模拟实际情形，但会导致 AI 出现惰性，不建议
 		#pongbot.position = Vector2(500, 145)
 		# 建议放到顶部或底部，增强 AI 的驱动力
-		pongbot.position = Vector2(500, 45)
+		pongbot.position = Vector2(1360, 200)
 		var ball = ballScn.instantiate()
 		
 		ball.add_to_group("ball")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cobw22uuoivg0"]
+[gd_scene load_steps=5 format=3 uid="uid://cobw22uuoivg0"]
 
 [ext_resource type="Script" path="res://games/ping_pong/Game.gd" id="1_nnoeu"]
 [ext_resource type="Script" path="res://games/ping_pong/PlayerScene.gd" id="2_7teqf"]
+[ext_resource type="FontFile" uid="uid://bcoebvhhhmmx6" path="res://fonts/Xolonium-Regular.ttf" id="3_daeoj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w83hj"]
-size = Vector2(20, 320)
+size = Vector2(20, 786)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nnoeu")
@@ -13,71 +14,89 @@ script = ExtResource("1_nnoeu")
 script = ExtResource("2_7teqf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 150)
+position = Vector2(0, 383)
 shape = SubResource("RectangleShape2D_w83hj")
 debug_color = Color(1, 1, 1, 1)
 
 [node name="PlayerScore" type="Node2D" parent="."]
+position = Vector2(82, 18)
 
 [node name="Label" type="Label" parent="PlayerScore"]
-offset_left = 33.0
-offset_top = 24.0
-offset_right = 73.0
-offset_bottom = 47.0
+offset_left = 88.0
+offset_top = 47.0
+offset_right = 128.0
+offset_bottom = 96.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="AIScore" type="Node2D" parent="."]
 
 [node name="Label2" type="Label" parent="AIScore"]
-offset_left = 414.0
-offset_top = 23.0
-offset_right = 454.0
-offset_bottom = 46.0
+offset_left = 1166.0
+offset_top = 63.0
+offset_right = 1206.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="Timer" type="Node2D" parent="."]
 
 [node name="TimeLabel" type="Label" parent="Timer"]
-offset_left = 227.0
-offset_top = 22.0
-offset_right = 267.0
-offset_bottom = 45.0
+offset_left = 646.0
+offset_top = 65.0
+offset_right = 686.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "0"
 
 [node name="GeneticInfo" type="Node2D" parent="."]
+position = Vector2(79, 125)
 
 [node name="Generation" type="Label" parent="GeneticInfo"]
-offset_left = 31.0
-offset_top = 244.0
-offset_right = 71.0
-offset_bottom = 267.0
+offset_left = 64.0
+offset_top = 401.0
+offset_right = 347.0
+offset_bottom = 450.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "Generation: 0"
 
 [node name="BestRating" type="Label" parent="GeneticInfo"]
-offset_left = 31.0
-offset_top = 269.0
-offset_right = 71.0
-offset_bottom = 292.0
+offset_left = 62.0
+offset_top = 544.0
+offset_right = 361.0
+offset_bottom = 593.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "Best Rating: 0"
 
 [node name="AvgLifetime" type="Label" parent="GeneticInfo"]
-offset_left = 31.0
-offset_top = 220.0
-offset_right = 137.0
-offset_bottom = 243.0
+offset_left = 59.0
+offset_top = 486.0
+offset_right = 340.0
+offset_bottom = 535.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "Avg Rating: 0"
 
 [node name="Population" type="Label" parent="GeneticInfo"]
-offset_left = 32.0
-offset_top = 197.0
-offset_right = 149.0
-offset_bottom = 220.0
+offset_left = 61.0
+offset_top = 442.0
+offset_right = 336.0
+offset_bottom = 491.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 text = "Population: 0"
 
 [node name="Message" type="Label" parent="GeneticInfo"]
-offset_left = 227.0
-offset_top = 265.0
-offset_right = 344.0
-offset_bottom = 288.0
+offset_left = 567.0
+offset_top = 535.0
+offset_right = 684.0
+offset_bottom = 584.0
+theme_override_fonts/font = ExtResource("3_daeoj")
+theme_override_font_sizes/font_size = 40
 
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
