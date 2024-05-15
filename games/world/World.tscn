@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://b6dmnd6rfi8rb"]
+[gd_scene load_steps=2 format=3 uid="uid://b6dmnd6rfi8rb"]
+
+[ext_resource type="PackedScene" uid="uid://c14gpwi1byxw3" path="res://games/world/Wall.tscn" id="1_xh4av"]
 
 [node name="World" type="Node2D"]
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="WallLeft" parent="Walls" instance=ExtResource("1_xh4av")]
+position = Vector2(205, 379)
+scale = Vector2(1, 2.44)
+
+[node name="WallRight" parent="Walls" instance=ExtResource("1_xh4av")]
+position = Vector2(1009, 377)
+scale = Vector2(1, 2.44)
+
+[node name="WallTop" parent="Walls" instance=ExtResource("1_xh4av")]
+position = Vector2(608, 59)
+rotation = 1.5708
+scale = Vector2(1, 3.08)
+
+[node name="WallBottom" parent="Walls" instance=ExtResource("1_xh4av")]
+position = Vector2(608, 695)
+rotation = 1.5708
+scale = Vector2(1, 3.08)

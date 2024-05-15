@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rtumncew0kx4"]
+
+[ext_resource type="Script" path="res://games/world/biologic/Vegetarian.gd" id="1_j3a1e"]
+
+[node name="Vegetarian" type="Node2D"]
+script = ExtResource("1_j3a1e")

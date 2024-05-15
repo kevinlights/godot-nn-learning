@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlnnhai6wrl3"]
+
+[ext_resource type="Script" path="res://games/world/resource/Water.gd" id="1_485ts"]
+
+[node name="Water" type="Node2D"]
+script = ExtResource("1_485ts")
