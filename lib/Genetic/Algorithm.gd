@@ -8,9 +8,9 @@ class Individual:
 	var lifeTime # 生活时间
 	var rating # 生存率
 	
-	func _init(numberOfChromosomes = null, chromosome = [], generation = 1):
-		self.generation = generation
-		self.chromosome = chromosome
+	func _init(numberOfChromosomes = null, _chromosome = [], _generation = 1):
+		self.generation = _generation
+		self.chromosome = _chromosome
 		self.pointsDid = 0
 		self.lifeTime = 0
 		
@@ -21,6 +21,9 @@ class Individual:
 		self.lifeTime = newLifeTime
 
 	func generateFirstGeneration(numberOfChromosomes):
+		if len(self.chromosome) > 0:
+			# 如果已经有染色体了，就不再生成新的
+			return
 		for i in range(numberOfChromosomes):
 			# 随机化生成染色体，值为 -1 到 1 中间
 			randomize()

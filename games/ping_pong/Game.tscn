@@ -61,4 +61,18 @@ offset_right = 71.0
 offset_bottom = 292.0
 text = "Best Rating: 0"
 
+[node name="AvgLifetime" type="Label" parent="GeneticInfo"]
+offset_left = 31.0
+offset_top = 220.0
+offset_right = 137.0
+offset_bottom = 243.0
+text = "Avg LifeTime: 0"
+
+[node name="Population" type="Label" parent="GeneticInfo"]
+offset_left = 31.0
+offset_top = 192.0
+offset_right = 148.0
+offset_bottom = 215.0
+text = "Population: 0"
+
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]

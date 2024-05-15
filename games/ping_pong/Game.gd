@@ -1,13 +1,16 @@
 extends Node2D
 
 var GeneticAlgorithm = preload("res://lib/Genetic/Algorithm.gd")
-const botScn = preload("res://scenes/ping_pong/bot.tscn")
-const ballScn = preload("res://scenes/ping_pong/ball.tscn")
+const botScn = preload("res://games/ping_pong/bot.tscn")
+const ballScn = preload("res://games/ping_pong/ball.tscn")
 @onready var playerLabel = $PlayerScore/Label
 @onready var botLabel = $AIScore/Label2
 @onready var best_rating = $GeneticInfo/BestRating
 @onready var generation = $GeneticInfo/Generation
 @onready var time_label = $Timer/TimeLabel
+@onready var avg_lifetime = $GeneticInfo/AvgLifetime
+@onready var population_label = $GeneticInfo/Population
+
 
 const save_path = "user://genetic_top_chromosome.save"
 
@@ -35,7 +38,7 @@ func _ready():
 	genetic = GeneticAlgorithm.GeneticAlgorithm.new(numberPopulation, 0.1)
 	genetic.initializePopulation(initializeWithThatWeights)
 	
-	setPopulation()
+	displayPopulation()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -43,25 +46,32 @@ func _process(delta):
 	time += delta
 	time_label.text = str(round(time))
 	
-
+# 删除种群，但是参数保留
 func deletePopulation():
 	for instance in instances:
-		genetic.population[instance.k].setPointsAndLose(instance.points, instance.lose)
+		# 这一句暂时没用
+		# genetic.population[instance.k].setPointsAndLose(instance.points, instance.lose)
+		# 设置个体的生存率
 		genetic.population[instance.k].fitness()
+		# 将当前个体销毁
 		instance.queue_free()
-		
+	# 挨个销毁球
 	for instance in balls:
 		instance.queue_free()
 
+	# 清空数组
 	instances = []
 	balls = []
 
-
-func setPopulation():
+# 在场景中显示种群
+func displayPopulation():
 	var k = 0
 	randomize()
 	var kColor = [randf(), randf(), randf()]
 	print("population size: ", genetic.population.size())
+	population_label.text = "Population: " + str(len(genetic.population))
+	# 打印当前种群世代
+	generation.text = "Generation: " + str(genetic.generation)
 	for i in range(genetic.population.size()):
 		var pongbot = botScn.instantiate()
 		
@@ -103,25 +113,29 @@ func setPopulation():
 		add_child(pongbot)
 		instances.append(pongbot)
 	
-
+# 玩家得分：清空屏幕重新开始训练
+# 但是参数未变，在原有的参数基础上进行训练，提高准确度
 func onPlayerHit(k):
 	#print("onPlayerHit", k)
 	playerScore += 1
 	
 	for i in range(instances.size()):
+		# 遍历个体和球
 		var instance = instances[i]
 		var ball = balls[i]
 		
 		if instance.k == k:
-			genetic.population[instance.k].setLifeTime(time)
-			genetic.population[instance.k].fitness()
-			instance.queue_free()
-			ball.queue_free()
-			instances.erase(instance)
+			# 跟玩家击中的球的索引进行比较，只处理被击中得分的球和相应的个体
+			genetic.population[instance.k].setLifeTime(time) # 设置生存时间
+			genetic.population[instance.k].fitness() # 设置生存率
+			instance.queue_free() # 将当前处理的个体销毁
+			ball.queue_free() # 将当前的球销毁
+			instances.erase(instance) # 从数组中移除个体
 			balls.erase(ball)
 			break
 
 	if not instances.size():
+		# 如果当前没有 AI 实体了，就重新训练
 		restart()
 	playerLabel.text = str(playerScore)
 	
@@ -130,39 +144,48 @@ func onBotHit(k):
 	botScore += 1
 	botLabel.text = str(botScore)
 
-
+# 重启方法
 func restart():
 	time = 0
 	playerScore = 0
 	botScore = 0
 	
+	# 将当前的世代加1
 	genetic.generation += 1
 	
+	# 清空屏幕上的显示得分
 	playerLabel.text = "0"
 	botLabel.text = "0"
 	
+	# 删除种群
 	deletePopulation()
+	# 按照生存率排序种群
 	genetic.sortPopulation()
 	
-	best_rating.text = "Best Rating: " + str(genetic.bestSolution.rating)
+	# 显示当前最好的生存率
+	best_rating.text = "Best Rating: " + str(round(genetic.bestSolution.rating))
 	
+	# 计算种群平均生存率（生存时间）
 	var average = 0
-	
 	for i in genetic.population:
-		print(i.rating)
+		# print(i.rating)
 		average += i.rating
 	
 	average /= genetic.population.size()
 	
+	# 创建新种群，即产生 2 个新个体
 	genetic.createNewPopulation()
-	setPopulation()
+	# 在场景中绘制种群
+	displayPopulation()
 	
 	#print("NEW POPULATION")
 	#for item in genetic.population:
 		#print(item.chromosome)	
 
-	generation.text = "Generation: " + str(genetic.generation)
 	
+	avg_lifetime.text = "Avg Lifetime: " + str(round(average))
+	
+	print("average lifetime: ", average)
 	print("bestSolution: ", genetic.bestSolution.chromosome)
 	print("bestSolution size: ", len(genetic.bestSolution.chromosome))
 	# save top N chromosome to file
