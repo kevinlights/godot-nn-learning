@@ -46,6 +46,7 @@ func restart(newHorizontal):
 	vertical = 0 + randf_range(-0.5, 0.5)
 	position = Vector2(240, 150)
 
+# 球的反弹，这里只设置垂直方向的变化，方向不变，并对值进行一些调整，模拟现实中的摩擦力，会损失一部分垂直速度
 func bounce(d):
 	vertical += d * -0.01
 	

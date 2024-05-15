@@ -8,7 +8,6 @@ size = Vector2(20, 320)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nnoeu")
-isPlay = true
 
 [node name="Player" type="Area2D" parent="."]
 script = ExtResource("2_7teqf")
@@ -66,13 +65,19 @@ offset_left = 31.0
 offset_top = 220.0
 offset_right = 137.0
 offset_bottom = 243.0
-text = "Avg LifeTime: 0"
+text = "Avg Rating: 0"
 
 [node name="Population" type="Label" parent="GeneticInfo"]
-offset_left = 31.0
-offset_top = 192.0
-offset_right = 148.0
-offset_bottom = 215.0
+offset_left = 32.0
+offset_top = 197.0
+offset_right = 149.0
+offset_bottom = 220.0
 text = "Population: 0"
+
+[node name="Message" type="Label" parent="GeneticInfo"]
+offset_left = 227.0
+offset_top = 265.0
+offset_right = 344.0
+offset_bottom = 288.0
 
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
